@@ -4,4 +4,4 @@ node_js:
 - "lts/*"
 - "8"
 - "7"
-script: make coverage
+script: npm run lint && npm run cover && cat coverage/lcov.info | ./node_modules/.bin/coveralls
