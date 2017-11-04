@@ -64,8 +64,7 @@ project_name_is_invalid() {
     echo "go with '${project_name//' '/-}' instead of '$project_name'?"
 
   elif project_name_includes_slashes; then
-    echo "The project name cannot include slashes. Perhaps you could"
-    echo "go with '${project_name//'/'/-}' instead of '$project_name'?"
+    echo "The project name cannot include slashes."
 
   elif project_name_includes_quotes; then
     echo "The project name cannot include quotes. Perhaps you could"
