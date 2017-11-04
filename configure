@@ -224,7 +224,7 @@ run_tests() {
 
 commit_changes() {
   echogood "Altering git origin ..."
-  run_or_exit git remote set-url origin "git@github.com/mlibrary/${project_name}.git"
+  run_or_exit git remote set-url origin "git@github.com:mlibrary/${project_name}.git"
 
   echogood "Committing changes ..."
   run_or_exit git add package.json README.md
