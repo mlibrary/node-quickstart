@@ -4,6 +4,17 @@ Node Quickstart
 [![Build Status][status-image]][travis]
 [![Test Coverage][cover-image]][coverage]
 
+A starting point with built-in testing, linting, continuous integration,
+and coverage support. After your first push to github, you'll need to do
+two things:
+
+1.  Enable your repository at <https://travis-ci.org> (you may need to
+    sync account).
+2.  Enable your repository at <https://coveralls.io/repos/new> (you may
+    need to sync repos).
+
+For more information on what's included, [see below](#now-what).
+
 Tutorial for a new project
 --------------------------
 
@@ -34,10 +45,16 @@ It will:
 Tutorial for an existing project
 --------------------------------
 
+### Using `./configure` ###
+
+1.  Follow the instructions for a new project in a new folder.
+2.  Copy the resulting files into your old project.
+3.  Delete the project you created in step 1.
+
 ### By hand ###
 
-One method is to simply look at the files in this repository and copy
-them as-they-are into your own.
+You can look at the files in this repository and copy them mostly
+as-they-are into your own.
 
 These four files can be copied without making changes:
 -   .eslint.json
@@ -70,12 +87,6 @@ dependencies with the following:
 ```bash session
 $ npm install --save-dev chai coveralls eslint istanbul mocha eslint-{plugin-{import,node,promise,standard},config-standard}
 ```
-
-### Or you can do it using `./configure` ###
-
-1.  Follow the instructions for a new project in a new folder.
-2.  Copy the resulting files into your old project.
-3.  Delete the project you created in step 1.
 
 Now what?
 ---------
