@@ -31,6 +31,22 @@ transform_repo() {
 
   run_or_exit mv new.json package.json
 
+  echogood "Altering README.md ..."
+  cat <<EOF > README.md
+$project_name
+`echo "$project_name" | sed -e 's/./=/g'`
+
+[![Build Status][status-image]][travis]
+[![Test Coverage][cover-image]][coverage]
+
+$project_description
+
+[travis]:       https://travis-ci.org/mlibrary/$project_name
+[status-image]: https://travis-ci.org/mlibrary/$project_name.svg?branch=master
+[coverage]:     https://coveralls.io/github/mlibrary/$project_name
+[cover-image]:  https://coveralls.io/repos/github/mlibrary/$project_name/badge.svg?branch=master
+EOF
+
   echogood "Altering git origin ..."
   run_or_exit git remote set-url origin "git@github.com/mlibrary/${project_name}.git"
 
@@ -38,11 +54,17 @@ transform_repo() {
   run_or_exit npm install
 
   echogood "Committing changes ..."
-  run_or_exit git add package.json
+  run_or_exit git add package.json README.md
   run_or_exit git rm configure
   run_or_exit git commit -m ":house: Rename to $project_name"
 
-  echogood "Done."
+  echogood "Running linter ..."
+  run_or_exit npm run lint
+
+  echogood "Running tests ..."
+  run_or_exit npm test
+
+  echogood "Everything looks good!"
 }
 
 sanitize_description() {
