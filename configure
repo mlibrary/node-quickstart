@@ -19,66 +19,12 @@ npm_is_installed() {
 
 transform_repo() {
   collect_inputs
-
-  echogood "Altering package.json ..."
-  if ! sed -e "s/node-quickstart/$project_name/" \
-    -e "s/ \"PROJECT_DESCRIPTION\",$/ \"`sanitize_description`\",/" \
-    -e "s/ \"YOUR_NAME\",$/ \"`sanitize_author`\",/" \
-    package.json > new.json; then
-    echobad "Couldn't write new package.json"
-    exit 1
-  fi
-
-  run_or_exit mv new.json package.json
-
-  echogood "Altering README.md ..."
-  cat <<EOF > README.md
-$project_name
-`echo "$project_name" | sed -e 's/./=/g'`
-
-[![Build Status][status-image]][travis]
-[![Test Coverage][cover-image]][coverage]
-
-$project_description
-
-[travis]:       https://travis-ci.org/mlibrary/$project_name
-[status-image]: https://travis-ci.org/mlibrary/$project_name.svg?branch=master
-[coverage]:     https://coveralls.io/github/mlibrary/$project_name
-[cover-image]:  https://coveralls.io/repos/github/mlibrary/$project_name/badge.svg?branch=master
-EOF
-
-  echogood "Altering git origin ..."
-  run_or_exit git remote set-url origin "git@github.com/mlibrary/${project_name}.git"
-
-  echogood "Installing dev dependencies ..."
-  run_or_exit npm install
-
-  echogood "Committing changes ..."
-  run_or_exit git add package.json README.md
-  run_or_exit git rm configure
-  run_or_exit git commit -m ":house: Rename to $project_name"
-
-  echogood "Running linter ..."
-  run_or_exit npm run lint
-
-  echogood "Running tests ..."
-  run_or_exit npm test
+  rewrite_package_json
+  rewrite_readme
+  run_tests
+  commit_changes
 
   echogood "Everything looks good!"
-}
-
-sanitize_description() {
-  echo "$project_description" | sed \
-    -e 's/\\/\\\\/g' \
-    -e 's/"/\\\\"/g' \
-    -e 's/\//\\\//g'
-}
-
-sanitize_author() {
-  echo "$author_name" | sed \
-    -e 's/\\/\\\\/g' \
-    -e 's/"/\\\\"/g' \
-    -e 's/\//\\\//g'
 }
 
 collect_inputs() {
@@ -219,6 +165,72 @@ ask_yes_or_no() {
       ask_yes_or_no
       ;;
   esac
+}
+
+rewrite_package_json() {
+  echogood "Altering package.json ..."
+  if ! sed -e "s/node-quickstart/$project_name/" \
+    -e "s/ \"PROJECT_DESCRIPTION\",$/ \"`sanitize_description`\",/" \
+    -e "s/ \"YOUR_NAME\",$/ \"`sanitize_author`\",/" \
+    package.json > new.json; then
+    echobad "Couldn't write new package.json"
+    exit 1
+  fi
+
+  run_or_exit mv new.json package.json
+}
+
+sanitize_description() {
+  echo "$project_description" | sed \
+    -e 's/\\/\\\\/g' \
+    -e 's/"/\\\\"/g' \
+    -e 's/\//\\\//g'
+}
+
+sanitize_author() {
+  echo "$author_name" | sed \
+    -e 's/\\/\\\\/g' \
+    -e 's/"/\\\\"/g' \
+    -e 's/\//\\\//g'
+}
+
+rewrite_readme() {
+  echogood "Altering README.md ..."
+  cat <<EOF > README.md
+$project_name
+`echo "$project_name" | sed -e 's/./=/g'`
+
+[![Build Status][status-image]][travis]
+[![Test Coverage][cover-image]][coverage]
+
+$project_description
+
+[travis]:       https://travis-ci.org/mlibrary/$project_name
+[status-image]: https://travis-ci.org/mlibrary/$project_name.svg?branch=master
+[coverage]:     https://coveralls.io/github/mlibrary/$project_name
+[cover-image]:  https://coveralls.io/repos/github/mlibrary/$project_name/badge.svg?branch=master
+EOF
+}
+
+run_tests() {
+  echogood "Installing node dependencies ..."
+  run_or_exit npm install
+
+  echogood "Running linter ..."
+  run_or_exit npm run lint
+
+  echogood "Running tests ..."
+  run_or_exit npm test
+}
+
+commit_changes() {
+  echogood "Altering git origin ..."
+  run_or_exit git remote set-url origin "git@github.com/mlibrary/${project_name}.git"
+
+  echogood "Committing changes ..."
+  run_or_exit git add package.json README.md
+  run_or_exit git rm configure
+  run_or_exit git commit -m ":house: Rename to $project_name"
 }
 
 run_or_exit() {
