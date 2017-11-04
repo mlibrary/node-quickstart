@@ -101,7 +101,7 @@ You can run tests with
 $ npm test
 ```
 
-The linter is ESLint, which is highly configurable using the
+The linter is [ESLint][3], which is highly configurable using the
 `.eslintrc.json` file. You can (and should) run the linter with
 
 ```bash session
