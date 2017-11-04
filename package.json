@@ -6,8 +6,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "mocha --recursive --reporter nyan spec",
-    "cover": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --recursive --reporter spec spec"
+    "test": "mocha --reporter nyan --recursive spec",
+    "travis": "istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --reporter spec --recursive spec"
   },
   "repository": {
     "type": "git",
