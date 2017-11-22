@@ -227,9 +227,12 @@ commit_changes() {
   run_or_exit git remote set-url origin "git@github.com:mlibrary/${project_name}.git"
 
   echogood "Committing changes ..."
+  run_or_exit git checkout --orphan new-master
   run_or_exit git add package.json README.md
-  run_or_exit git rm configure
-  run_or_exit git commit -m ":house: Rename to $project_name"
+  run_or_exit git rm --force configure
+  run_or_exit git commit -m ":zap: Initial commit"
+  run_or_exit git branch --delete --force master
+  run_or_exit git branch --move master
 }
 
 run_or_exit() {
