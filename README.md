@@ -5,15 +5,16 @@ Node Quickstart
 [![Test Coverage][cover-image]][coverage]
 
 A starting point with built-in testing, linting, continuous integration,
-and coverage support. After your first push to github, you'll need to do
-two things:
+and coverage support.
 
-1.  Enable your repository at <https://travis-ci.org> (you may need to
-    sync account).
-2.  Enable your repository at <https://coveralls.io/repos/new> (you may
-    need to sync repos).
+#### Table of Contents ####
 
-For more information on what's included, [see below](#now-what).
+1.  [Tutorial for a new project](#tutorial-for-a-new-project)
+2.  [Tutorial for an existing project](#tutorial-for-an-existing-project)
+    -   [Using `./configure`](#using-configure)
+    -   [By hand](#by-hand)
+3.  [Setting up travis and coveralls](#setting-up-travis-and-coveralls)
+4.  [How to use this repository](#how-to-use-this-repository)
 
 Tutorial for a new project
 --------------------------
@@ -88,8 +89,18 @@ dependencies with the following:
 $ npm install --save-dev chai coveralls eslint istanbul mocha eslint-{plugin-{import,node,promise,standard},config-standard}
 ```
 
-Now what?
----------
+Setting up travis and coveralls
+-------------------------------
+
+After your first push to github, you'll need to do two things:
+
+1.  Enable your repository at <https://travis-ci.org> (you may need to
+    sync account).
+2.  Enable your repository at <https://coveralls.io/repos/new> (you may
+    need to sync repos).
+
+How to use this repository
+--------------------------
 
 Your test files go under the `spec/` directory, and I suggest that you
 put your code under the `lib/` directory with relative includes to your
