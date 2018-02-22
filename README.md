@@ -20,9 +20,8 @@ Tutorial for a new project
 --------------------------
 
 ```bash session
-$ mkdir path/to/your/new/project
-$ cd path/to/your/new/project
-$ git clone git@github.com:mlibrary/node-quickstart .
+$ git clone https://github.com/mlibrary/node-quickstart your-project
+$ cd your-project
 $ ./configure
 ```
 
