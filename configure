@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2017 The Regents of the University of Michigan.
+# Copyright (c) 2017-2018 The Regents of the University of Michigan.
 # All Rights Reserved. Licensed according to the terms of the Revised
 # BSD License. See LICENSE.txt for details.
 GITHUB="https://github.com/mlibrary"
@@ -150,7 +150,7 @@ ask_yes_or_no() {
   echoask 'yes/no'
   read yes_or_no
 
-  case "${yes_or_no:0:1}" in
+  case `echo "$yes_or_no" | sed 's/^\(.\).*/\1/'` in
     [Yy])
       true
       ;;
